@@ -15,7 +15,7 @@ function setup() {
   dog.addImage(dog1);
   dog.scale = .2
 
-  var foodStock = database.ref('food');
+  foodStock = database.ref('food');
   foodStock.on("value",readStock);
 }
 
@@ -23,10 +23,21 @@ function setup() {
 function draw() {  
 
   background(46, 139, 87);
+  if(keyWentDown(UP_ARROW)){
+    dog.addImage(dog2);
+    writeStock(foodS);
+  }
   drawSprites();
   //add styles here
 
 }
 
+function readStock(data){
+  foodS = data.val();
+}
 
-
+function writeStock(x){
+  database.ref('/').update({
+    Food : x
+  })
+}
